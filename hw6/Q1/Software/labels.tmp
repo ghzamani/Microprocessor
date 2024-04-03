@@ -1,0 +1,44 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega32</DEVICE>
+ <WORKING_DIR>E:\uni\microproc\hw6\01 7Seg\Software</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>E:\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>E:\Atmel\AVR Tools\AvrAssembler2\Appnotes\m32def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <LOAD><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>13</LINE></LOAD>
+  <CALCULATE><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>19</LINE></CALCULATE>
+  <LOW_YEKAN><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>41</LINE></LOW_YEKAN>
+  <NEW_PREV><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>55</LINE></NEW_PREV>
+  <SEND><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>58</LINE></SEND>
+  <DISPLAY><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>60</LINE></DISPLAY>
+  <CONVERT><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>91</LINE></CONVERT>
+  <DELAY_DISP><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>80</LINE></DELAY_DISP>
+  <L1><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>81</LINE></L1>
+  <L2><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>82</LINE></L2>
+  <L3><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>83</LINE></L3>
+  <C1><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>96</LINE></C1>
+  <C2><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>100</LINE></C2>
+  <C3><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>104</LINE></C3>
+  <C4><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>108</LINE></C4>
+  <C5><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>112</LINE></C5>
+  <C6><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>116</LINE></C6>
+  <C7><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>120</LINE></C7>
+  <C8><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>124</LINE></C8>
+  <C9><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>128</LINE></C9>
+  <C10><FILE>E:\uni\microproc\hw6\01 7Seg\Software\program.asm</FILE><LINE>131</LINE></C10>
+ </LABELS>
+</ASSEMBLER_INFO>

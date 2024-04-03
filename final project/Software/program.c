@@ -1,0 +1,204 @@
+#include <mega32.h>
+#include <alcd.h>
+#include <delay.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+unsigned char int_to_char(int x) {
+    return x + '0';
+}
+
+void put_on_lcd(int value, int c) {
+    unsigned int r = 1;
+    unsigned char tens = int_to_char(value / 10);
+    unsigned char ones = int_to_char(value % 10);
+    lcd_gotoxy(c, r);
+    lcd_putchar(tens);
+    lcd_gotoxy(c + 1, r);
+    lcd_putchar(ones);
+}
+
+// Voltage Reference: AVCC pin
+#define ADC_VREF_TYPE ((0<<REFS1) | (1<<REFS0) | (0<<ADLAR))
+
+// Read the AD conversion result
+unsigned int read_adc(unsigned char adc_input) {
+    ADMUX = adc_input | ADC_VREF_TYPE;
+    // Delay needed for the stabilization of the ADC input voltage
+    delay_us(10);
+    // Start the AD conversion
+    ADCSRA |= (1 << ADSC);
+    // Wait for the AD conversion to complete
+    while ((ADCSRA & (1 << ADIF)) == 0);
+    ADCSRA |= (1 << ADIF);
+    return ADCW;
+}
+
+// EXTRA POINT PART
+void cooler_rotational_speed(int st){
+    int delay;
+    switch(st){ 
+        case 1:
+            delay = 600;
+            break;
+        case 2:
+            delay = 400;
+            break;
+        case 3:
+            delay = 200;
+            break;
+    } 
+    
+    DDRD = 0x0F; 
+    PORTD = 0x09;
+    delay_ms(delay);
+    PORTD = 0x08;
+    delay_ms(delay);
+    PORTD = 0x0C;
+    delay_ms(delay);
+    PORTD = 0x04;
+    delay_ms(delay);
+    PORTD = 0x06;
+    delay_ms(delay);
+    PORTD = 0x02;
+    delay_ms(delay);
+    PORTD = 0x03;
+    delay_ms(delay);
+    PORTD = 0x01;
+    delay_ms(delay);
+}
+
+
+void main(void) {
+    int temperature;
+    unsigned int state = 1; 
+    bool cooler = false;
+    bool heater = false; 
+    
+    int cooler_state = 0;
+
+    int period = 200;
+    // ADC initialization
+    // ADC Clock frequency: 250.000 kHz
+    // ADC Voltage Reference: AVCC pin
+    // ADC Auto Trigger Source: ADC Stopped
+    ADMUX |= (1<<MUX0);
+    //ADMUX=ADC_VREF_TYPE;
+    ADCSRA=(1<<ADEN) | (0<<ADSC) | (0<<ADATE) | (0<<ADIF) | (0<<ADIE) | (1<<ADPS2) | (0<<ADPS1) | (1<<ADPS0);
+    SFIOR=(0<<ADTS2) | (0<<ADTS1) | (0<<ADTS0);
+    
+    lcd_init(16);
+    
+    lcd_gotoxy(3, 0);
+    //lcd_puts("LM35 Sensor");
+    
+    lcd_gotoxy(2, 1);
+    lcd_puts("Temp :");
+    
+    lcd_gotoxy(12, 1);
+    lcd_putchar(223);
+    
+    lcd_gotoxy(13, 1);
+    lcd_puts("C");
+    
+    delay_ms(1000);
+    while (1) {
+        temperature = read_adc(0);
+        temperature = temperature * 0.48898;
+        put_on_lcd(temperature, 9); 
+        
+        // check the temperature to find the state  
+        if(state == 1){
+         
+            lcd_gotoxy(3, 0);    
+            lcd_puts("state: 1");
+            if(temperature > 35){ 
+                state = 2;
+                heater = false;
+                cooler = true;                         
+            }                 
+            else if(temperature < 15){
+                state = 3;
+                heater = true;
+                cooler = false; 
+            } 
+            else{
+                //stays in state 1
+                heater = false;
+                cooler = false;  
+            }
+        }                      
+        else if(state == 2){   
+        
+            lcd_gotoxy(3, 0);
+            lcd_puts("state: 2");
+            if(temperature < 25){
+                state = 1;
+                heater = false;
+                cooler = false; 
+            } 
+            else{
+                //stays in state 2
+                heater = false;
+                cooler = true; 
+            }                 
+        }                      
+        else{       
+        
+            lcd_gotoxy(3, 0);
+            lcd_puts("state: 3");
+            //state is 3
+            if(temperature > 30){
+                state = 1;
+                heater = false;
+                cooler = false;          
+            }
+            else{
+                //stays in state 3
+                heater = true;
+                cooler = false;  
+            }
+        }
+        
+        DDRD = 0x00;
+        if(cooler){
+            // EXTRA POINT PART       
+            switch(cooler_state){
+                case(0):
+                    if(temperature > 35)
+                        cooler_state = 1;
+                    break;
+                case(1):         
+                    if(temperature < 25)
+                        cooler_state = 0;  
+                    if(temperature > 40)
+                        cooler_state = 2;
+                    break;
+                case(2):         
+                    if(temperature < 35)  
+                        cooler_state = 1;
+                    if(temperature > 45)
+                        cooler_state = 3;
+                    break;
+                case(3):       
+                    if(temperature < 40) 
+                        cooler_state = 2;
+                    break;
+            }   
+              
+            cooler_rotational_speed(cooler_state);
+        } 
+        
+        if(heater){
+            DDRD = 0xF0; 
+            PORTD = 0x90;
+            delay_ms(period);  
+            PORTD = 0xC0;
+            delay_ms(period);
+            PORTD = 0x60;
+            delay_ms(period);
+            PORTD = 0x30;
+            delay_ms(period); 
+        }  
+    }
+}

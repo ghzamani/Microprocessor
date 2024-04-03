@@ -1,0 +1,12 @@
+VERSION:3 SOURCE_TIMESTAMP:543B0699
+NODE:I LEVEL:0 LINE:1 "E:\code vision\inc\mega32.h"
+NODE:I LEVEL:0 LINE:2 "E:\code vision\inc\alcd.h"
+NODE:I LEVEL:0 LINE:3 "E:\code vision\inc\delay.h"
+NODE:I LEVEL:0 LINE:4 "E:\code vision\inc\stdbool.h"
+NODE:I LEVEL:0 LINE:5 "E:\code vision\inc\stdio.h"
+NODE:F LEVEL:0 LINE:7 "int_to_char(int x)"
+NODE:F LEVEL:0 LINE:11 "put_on_lcd(int value,int c)"
+NODE:M LEVEL:0 LINE:22 "ADC_VREF_TYPE"
+NODE:F LEVEL:0 LINE:25 "read_adc(unsigned char adc_input)"
+NODE:F LEVEL:0 LINE:37 "cooler_rotational_speed(int st)"
+NODE:F LEVEL:0 LINE:71 "main(void)"
